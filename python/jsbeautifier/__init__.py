@@ -191,7 +191,7 @@ def main():
                 "unescape-strings",
                 "usage",
                 "version",
-                "wrap-line-length",
+                "wrap-line-length=",
             ],
         )
     except getopt.GetoptError as ex:
@@ -255,7 +255,7 @@ def main():
             js_options.comma_first = True
         elif opt in ("--operator-position", "-O"):
             js_options.operator_position = arg
-        elif opt in ("--wrap-line-length ", "-w"):
+        elif opt in ("--wrap-line-length", "-w"):
             js_options.wrap_line_length = int(arg)
         elif opt in ("--indent-empty-lines",):
             js_options.indent_empty_lines = True

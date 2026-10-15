@@ -162,6 +162,15 @@ test_cli_js_beautify()
         cleanup 1
     }
 
+    # long and short wrap-length options should produce the same output
+    WRAP_INPUT='var result = veryLongFunctionName(argumentOne, argumentTwo, argumentThree);'
+    LONG_WRAP=$(printf '%s\n' "$WRAP_INPUT" | $CLI_SCRIPT --wrap-line-length 20)
+    SHORT_WRAP=$(printf '%s\n' "$WRAP_INPUT" | $CLI_SCRIPT -w 20)
+    if [ "$LONG_WRAP" != "$SHORT_WRAP" ]; then
+        echo "--wrap-line-length should behave like -w."
+        cleanup 1
+    fi
+
     # ensure eol processed correctly
     $CLI_SCRIPT -o $TEST_TEMP/js-beautify-n-dash.js --indent-size 2 --eol '\n' $TEST_TEMP/js-beautify-n.js
     $CLI_SCRIPT -o $TEST_TEMP/js-beautify-rn-dash.js --indent-size 2 --eol '\r\n' $TEST_TEMP/js-beautify-n.js
